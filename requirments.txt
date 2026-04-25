@@ -1,0 +1,8 @@
+pip==26.0.1
+numpy
+matplotlib
+pandas
+openpyxl
+requests
+bs4
+selenium
