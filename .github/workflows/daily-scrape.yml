@@ -2,11 +2,14 @@ name: Daily Scrape
 
 on:
   schedule:
-    - cron: '56 * * * *' 
+    - cron: '0 18 * * 1-5'  
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write 
 
     steps:
       - name: Checkout repository
@@ -25,3 +28,11 @@ jobs:
 
       - name: Run scrape script
         run: python scrape.py  
+
+      - name: Commit updated datasets
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dataset/
+          git diff --cached --quiet || git commit -m "data: update $(date -u '+%Y-%m-%d')"
+          git push
