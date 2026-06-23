@@ -14,7 +14,7 @@ options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--disable-gpu")
 
-driver = webdriver.Chrome()
+driver = webdriver.Chrome(options=options)
 driver.get("https://indexes.nasdaqomx.com/Index/History/OMXS30")
 WebDriverWait(driver, 15).until(
     EC.presence_of_element_located((By.CSS_SELECTOR, "#historyTable tbody tr td:not(.dataTables_empty)"))
